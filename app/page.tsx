@@ -1,12 +1,25 @@
-import TodoList from "./todo-list";
 import TodoAdd from "./todo-add";
+import Todo from "./todo";
 
-export default function Page() {
+const getTodo = async () => {
+  let todos = await fetch("https://nexttodo-bilalmk.vercel.app/api/todo/list");
+  return todos.json();
+};
+
+export default async function Page() {
+  const { todos } = await getTodo();
   return (
     <div>
       <TodoAdd />
-      {/*@ts-ignore */}
-      <TodoList />
+      <ul style={{ listStyleType: "none", padding: 0 }}>
+        {todos.map((t: { id: string; name: string; isDone: boolean }) => {
+          return (
+            <li key={t.id} style={{ padding: "5px 0" }}>
+              <Todo todo={t} />
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

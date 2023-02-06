@@ -1,7 +1,7 @@
 import Todo from "./todo";
 
 const getTodo = async () => {
-  let todos = await fetch("http://localhost:3000/api/todo/list");
+  let todos = await fetch("https://nexttodo-bilalmk.vercel.app/api/todo/list");
   return todos.json();
 };
 
